@@ -1,0 +1,12 @@
+{
+  "name": "cbms",
+  "version": "1.0.0",
+  "description": "这是一个商品后台管理系统（Commodity background management system）",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
