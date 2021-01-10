@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../public/css/reset.css">
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/index.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_2313067_l84mskgccw.css">
+    {{ block 'home-style' }}
+    <link rel="stylesheet" href="../public/css/workbench.css">
+    {{ /block }}
+</head>
+
+<body>
+    <div id="app">
+        <!-- 上方单航栏 -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand logo" href="#">
+                        <img alt="Brand" src="../public/img/logo/cbms-logo.png" height="80px">
+                    </a>
+                </div>
+                <div class="navbar-right user">
+                    <img class="user-avatar" src="../public/img/userAvatar/avatar1.jpg" alt="">
+                    <a href="#" class="navbar-link username">天一黑你就飞</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 中间内容部分 -->
+        <div id="main" class="row">
+            <!-- 左边导航栏 -->
+            <div id="main-left" class="col-sm-3 col-md-2">
+                <div id="main-left-menu">管理系统菜单</div>
+                <ul class="my-nav">
+                    <!-- 工作台 -->
+                    <li class="item workbench">
+                        <a href="/index.html">
+                            <i class="iconfont icon-workbench"></i>
+                            <span>工作台</span>
+                        </a>
+                    </li>
+
+                    <!-- 商品 -->
+                    <li class="item goods">
+                        <a href="/goods/commodity-management">
+                            <i class="iconfont icon-goods"></i>
+                            <span>商品</span>
+                            <i class="right iconfont icon-xiangxia"></i>
+                        </a>
+                    </li>
+                    <ul class="item-menu goods-menu hide">
+                        <li class="commodity-management">
+                            <a href="/goods/commodity-management">
+                                <i class="iconfont icon-spot"></i>
+                                <span>商品管理</span>
+                            </a>
+                        </li>
+                        <li class="lassified-management">
+                            <a href="/goods/lassified-management">
+                                <i class="iconfont icon-spot"></i>
+                                <span>分类管理</span>
+                            </a>
+                        </li>
+                        <li class="commodity-evaluation">
+                            <a href="/goods/commodity-evaluation">
+                                <i class="iconfont icon-spot"></i>
+                                <span>商品评价</span>
+                            </a>
+                        </li>
+                        <li class="hot-goods">
+                            <a href="/goods/hot-goods">
+                                <i class="iconfont icon-spot"></i>
+                                <span>热销商品</span>
+                            </a>
+                        </li>
+                        <li class="inventory-warning">
+                            <a href="/goods/inventory-warning">
+                                <i class="iconfont icon-spot"></i>
+                                <span>库存预警</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- 订单 -->
+                    <li class="item order">
+                        <a href="/order/order-management">
+                            <i class="iconfont icon-order"></i>
+                            <span>订单</span>
+                            <i class="right iconfont icon-xiangxia"></i>
+                        </a>
+                    </li>
+                    <ul class="item-menu order-menu hide">
+                        <li class="order-management">
+                            <a href="/order/order-management">
+                                <i class="iconfont icon-spot"></i>
+                                <span>订单管理</span>
+                            </a>
+                        </li>
+                        <li class="delivery-information-management">
+                            <a href="/order/delivery-information-management">
+                                <i class="iconfont icon-spot"></i>
+                                <span>发货信息管理</span>
+                            </a>
+                        </li>
+                        <li class="refund-order">
+                            <a href="/order/refund-order">
+                                <i class="iconfont icon-spot"></i>
+                                <span>退货/退款订单</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- 运营 -->
+                    <li class="item operate">
+                        <a href="#">
+                            <i class="iconfont icon-operate"></i>
+                            <span>运营</span>
+                            <i class="right iconfont icon-xiangxia"></i>
+                        </a>
+                    </li>
+                    <li class="item user">
+                        <a href="#">
+                            <i class="iconfont icon-user"></i>
+                            <span>用户</span>
+                            <i class="right iconfont icon-xiangxia"></i>
+                        </a>
+                    </li>
+                    <li class="item set">
+                        <a href="#">
+                            <i class="iconfont icon-set"></i>
+                            <span>设置</span>
+                            <i class="right iconfont icon-xiangxia"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 中间内容区域 -->
+            <div id="main-right" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+                {{ block 'main-right'}}
+                <div id="workbench">
+                    <div class="top">
+                        <!-- 今日销售额区域 -->
+                        <div id="today-sales-volume">
+                            <div class="one">
+                                <i class="icon iconfont icon-jinbi"></i>
+                                <span class="number">5200</span>
+                            </div>
+                            <div class="two">
+                                <span class="explain">今日销售额</span>
+                            </div>
+                        </div>
+
+                        <!-- 今日订单数区域 -->
+                        <div id="today-number-of-orders">
+                            <div class="one">
+                                <i class="icon iconfont icon-dingdan"></i>
+                                <span class="number">52</span>
+                            </div>
+                            <div class="two">
+                                <span class="explain">今日订单数</span>
+                            </div>
+                        </div>
+
+                        <!-- 出售商品数区域 -->
+                        <div id="number-of-goods-sold">
+                            <div class="one">
+                                <i class="icon iconfont icon-shangpin"></i>
+                                <span class="number">1000</span>
+                            </div>
+                            <div class="two">
+                                <span class="explain">出售商品数</span>
+                            </div>
+                        </div>
+
+                        <!-- 总会员数区域 -->
+                        <div id="total-membership">
+                            <div class="one">
+                                <i class="icon iconfont icon-yonghu"></i>
+                                <span class="number">100</span>
+                            </div>
+                            <div class="two">
+                                <span class="explain">总会员数</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="body">
+                        <div class="left">
+                            <!-- 待处理区域 -->
+                            <div class="pending">
+                                <div class="title">
+                                    待处理
+                                </div>
+
+                                <div class="content">
+                                    <div>
+                                        <i class="iconfont icon-fahuo"></i>
+                                        <span>待发货</span>
+                                        <span>20</span>
+                                    </div>
+                                    <div>
+                                        <i class="iconfont icon-fukuan"></i>
+                                        <span>待付款</span>
+                                        <span>20</span>
+                                    </div>
+                                    <div>
+                                        <i class="iconfont icon-tuikuan"></i>
+                                        <span>退货/退款</span>
+                                        <span>20</span>
+                                    </div>
+                                    <div>
+                                        <i class="iconfont icon-kucunyujing"></i>
+                                        <span>库存预警</span>
+                                        <span>20</span>
+                                    </div>
+                                    <div>
+                                        <i class="iconfont icon-xiaoxi"></i>
+                                        <span>商品咨询</span>
+                                        <span>20</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 常用菜单 -->
+                            <div class="common-menu">
+                                <div class="title">
+                                    常用菜单
+                                </div>
+
+                                <div class="content">
+                                    <div class="product-release">
+                                        <div>
+                                            <i class="iconfont icon-goods-copy"></i>
+                                        </div>
+                                        <span>商品发布</span>
+                                    </div>
+                                    <div class="carousel-map">
+                                        <div>
+                                            <i class="iconfont icon-tupian"></i>
+                                        </div>
+                                        <span>首页轮播图</span>
+                                    </div>
+                                    <div class="coupon">
+                                        <div>
+                                            <i class="iconfont icon-youhuiquan01"></i>
+                                        </div>
+                                        <span>优惠券</span>
+                                    </div>
+                                    <div class="online-service">
+                                        <div>
+                                            <i class="iconfont icon-zaixiankefux"></i>
+                                        </div>
+                                        <span>在线客服</span>
+                                    </div>
+                                    <div class="text-publishing">
+                                        <div>
+                                            <i class="iconfont icon-Font_Linear"></i>
+                                        </div>
+                                        <span>文字发布</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="right">
+                            <!-- 热销商品 -->
+                            <div class="hot-goods">
+                                <div>
+                                    <div class="title">
+                                        <span>热销商品</span>
+                                    </div>
+                                    <div class="time btn-group btn-group-xs">
+                                        <button type="button" class="btn btn-primary">年</button>
+                                        <button type="button" class="btn btn-default">月</button>
+                                        <button type="button" class="btn btn-default">日</button>
+                                      </div>
+                                </div>
+                                <div class="table-head">
+                                    <span>商品名称</span>
+                                    <span>商品种类</span>
+                                    <span>销量</span>
+                                </div>
+                                <div class="table-body">
+                                    <div class="nodata">暂无数据</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ /block }}
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script>
+        let pathArray = window.location.href.split('/')
+        if (pathArray[3].includes('index.html')) {
+            document.querySelector('.my-nav .workbench').classList.add('active')
+        } else if (pathArray[4]) {
+            let node1 = document.querySelector(`.my-nav .${pathArray[4]}`)
+            let node2 = document.querySelector(`.my-nav .${pathArray[3]}-menu`)
+            let sign = document.querySelector(`.my-nav .${pathArray[3]} .right`)
+            node1.classList.add('active')
+            node2.classList.remove('hide')
+            sign.classList.remove('icon-xiangxia')
+            sign.classList.add('icon-xiangshang')
+        }
+    </script>
+    {{ block 'script'}}{{ /block }}
+</body>
+
+</html>
