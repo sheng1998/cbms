@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../public/css/reset.css">
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../public/css/index.css">
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_2313067_l84mskgccw.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_2313067_6j5qzk0cyig.css">
     {{ block 'home-style' }}
     <link rel="stylesheet" href="../public/css/workbench.css">
     {{ /block }}
@@ -24,10 +24,17 @@
                         <img alt="Brand" src="../public/img/logo/cbms-logo.png" height="80px">
                     </a>
                 </div>
+                {{ if user}}
                 <div class="navbar-right user">
-                    <img class="user-avatar" src="../public/img/userAvatar/avatar1.jpg" alt="">
-                    <a href="#" class="navbar-link username">天一黑你就飞</a>
+                    <img class="user-avatar" src="{{ user.avatar }}" alt="">
+                    <a href="#" class="navbar-link username">{{ user.username }}</a>
                 </div>
+                {{ else }}
+                <div class="navbar-right" style="height: 80px; display: flex; justify-content: center; align-items: center; margin-right: 20px;">
+                    <a class="btn btn-success" href="/login" role="button" style="margin-right: 10px;">登录</a>
+                    <a class="btn btn-warning" href="/register" role="button">注册</a>
+                </div>
+                {{ /if }}
             </div>
         </nav>
 
@@ -297,8 +304,6 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script>
         let pathArray = window.location.href.split('/')
         if (pathArray[3].includes('index.html')) {

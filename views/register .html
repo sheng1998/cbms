@@ -1,0 +1,99 @@
+{{ extend './login.html'}}
+
+{{ block 'form'}}
+<form class="register_form" action="/register" method="POST">
+    <span class="register_form_title">
+        会员注册
+    </span>
+
+    <div class="register_input">
+        <span><i class="iconfont icon-yonghu"></i></span>
+        <input class="username_input" type="username" required minlength="3" maxlength="12" name="username" placeholder="用户名">
+    </div>
+    <div class="tips">
+        <span class="red hide username-tips"></span>
+    </div>
+
+    <div class="register_input">
+        <span><i class="iconfont icon-dianhua"></i></span>
+        <input class="tel_input" type="tel" required name="tel" placeholder="电话">
+    </div>
+    <div class="tips">
+        <span class="red hide telephone-tips"></span>
+    </div>
+
+    <div class="register_input">
+        <span><i class="iconfont icon-yuechi"></i></span>
+        <input class="password_input" required minlength="8" type="password" name="password" placeholder="密码">
+    </div>
+    <div class="tips">
+        <span class="red hide password1-tips"></span>
+    </div>
+
+    <div class="register_input">
+        <span><i class="iconfont icon-yuechi"></i></span>
+        <input class="password_input" type="password" required minlength="8" placeholder="确认密码">
+    </div>
+    <div class="tips">
+        <span class="red hide password2-tips"></span>
+    </div>
+
+    <div class="register_input_btn">
+        <button id="register" type="submit" class="register_btn">
+            注册
+        </button>
+
+        <button id="login_btn" class="login_btn">
+            <a href="/login">登录</a>
+        </button>
+    </div>
+</form>
+{{ /block }}
+
+{{ block 'script'}}
+<script>
+    let register = document.getElementById('register')
+    let loginBtn = document.getElementById('login_btn')
+    loginBtn.onclick = function () {
+        window.event.preventDefault()
+        window.location.href = '/login'
+    }
+    register.onclick = function () {
+        window.event.preventDefault()
+        let username = document.querySelector('.register_input .username_input').value
+        let telephone = document.querySelector('.register_input .tel_input').value
+        let password1 = document.querySelectorAll('.register_input .password_input')[0].value
+        let password2 = document.querySelectorAll('.register_input .password_input')[1].value
+        let tips = document.querySelectorAll('.tips span')
+        for (let index = 0; index < tips.length; index++) {
+            tips[index].innerText = ''
+        }
+        if (!username.trim()) {
+            tips[0].innerText = '请正确输入用户名！'
+        } else if (username.trim().length <= 3 || username.trim().length >= 12) {
+            tips[0].innerText = '用户名长度要大于等于3，小于等于12'
+        } else if (!telephone.trim()) {
+            tips[1].innerText = '请正确输入电话号码！'
+        } else if (!password1.trim()) {
+            tips[2].innerText = '请正确输入密码！'
+        } else if (!password2.trim()) {
+            tips[3].innerText = '请再次输入密码！'
+        } else if (password1 !== password2) {
+            tips[3].innerText = '两次输入密码不一致！'
+        } else {
+            ajax('/register', 'POST', {
+                username,
+                telephone,
+                password: password1
+            }, (data) => {
+                if (data.err_code && data.err_code !== 0) {
+                    tips[data.err_code - 1].innerText = data.message
+                } else if (data.err_code === 0) {
+                    window.alert('注册成功，点击确定跳转至登录页面。')
+                    window.location.href = '/login'
+                }
+            })
+        }
+    }
+</script>
+{{ /block }}

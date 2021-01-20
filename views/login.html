@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_2313067_6j5qzk0cyig.css">
+    <link rel="stylesheet" href="../public/css/login.css">
+</head>
+
+<body>
+    <div id="login">
+        <div class="center">
+            <div class="login_pic">
+                <img src="../public/img/login/img_01.png">
+            </div>
+
+            {{ block 'form' }}
+            <form class="login_form">
+                <span class="login_form_title">
+                    会员登陆
+                </span>
+
+                <div class="login_input">
+                    <span><i class="iconfont icon-dianhua"></i></span>
+                    <input class="tel_input" required minlength="3" maxlength="12" type="tel" name="tel"
+                        placeholder="电话" value="18475140601">
+                </div>
+                <div class="tips">
+                    <span class="red hide telephone-tips"></span>
+                </div>
+
+                <div class="login_input">
+                    <span><i class="iconfont icon-yuechi"></i></span>
+                    <input class="password_input" required type="password" name="password" placeholder="密码" value="123abc.com">
+                </div>
+                <div class="tips">
+                    <span class="red hide password-tips"></span>
+                </div>
+
+                <div class="login_input_btn">
+                    <button id="login_btn" type="submit" class="login_btn">
+                        登陆
+                    </button>
+
+                    <button id="register_btn" class="register_btn">
+                        <a href="/register">注册</a>
+                    </button>
+                </div>
+
+                <div class="forget_password">
+                    <a href="#">
+                        忘记密码？
+                    </a>
+                </div>
+            </form>
+            {{ /block }}
+        </div>
+    </div>
+    <script>
+        function ajax(url, type = 'GET', obj, fun) {
+            obj = objToString(obj)
+            let xhr = new XMLHttpRequest()
+            xhr.open(type, url, true)
+            xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+            xhr.send(obj)
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    fun(JSON.parse(xhr.responseText))
+                }
+            }
+        }
+
+        function objToString(obj) {
+            if (Object.prototype.toString.call(obj) === '[object Object]') {
+                let arr = [];
+                for (const key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        arr.push(`${key}=${obj[key]}`);
+                    }
+                }
+                return arr.join('&');
+            }
+        }
+    </script>
+    {{ block 'script'}}
+    <script>
+        let loginBtn = document.getElementById('login_btn')
+        let registerBtn = document.getElementById('register_btn')
+        loginBtn.onclick = function () {
+            window.event.preventDefault()
+            let telephone = document.querySelector('#login .login_form .tel_input').value
+            let password = document.querySelector('#login .login_form .password_input').value
+            let tips = document.querySelectorAll('.tips span')
+            for (let index = 0; index < tips.length; index++) {
+                tips[index].innerText = ''
+            }
+            if (!telephone.trim()) {
+                tips[0].innerText = '请正确输入电话号码！'
+            } else if (!password.trim()) {
+                tips[1].innerText = '请正确输入密码！'
+            } else {
+                ajax('/login', 'POST', {
+                    telephone,
+                    password
+                }, (data) => {
+                    if(data.err_code && data.err_code === -2) {
+                        tips[0].innerText = data.message
+                    } else if(data.err_code && data.err_code === -3) {
+                        tips[1].innerText = data.message
+                    } else if(data.err_code === 0){
+                        window.location.href = '/'
+                    }
+                })
+            }
+        }
+
+        registerBtn.onclick = function () {
+            window.event.preventDefault()
+            window.location.href = '/register'
+        }
+    </script>
+    {{ /block }}
+</body>
+
+</html>

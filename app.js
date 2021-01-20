@@ -2,15 +2,24 @@
 let path = require('path')
 // 引入 express 包
 let express = require('express')
+// 引入 body-parser 包，处理 post 请求的数据
+let bodyParser = require('body-parser')
+// 引入 express-session 包，处理 session 数据
+let session = require("express-session")
 
 // 引入路由模块
 let router = require('./routes/index') 
+
 
 // 创建 express 的实例
 let app = express()
 
 // 公开静态资源目录 public
 app.use('/public/', express.static(path.join(__dirname, './public/')))
+
+// 配置 body-parser 中间件，专门处理解析表单 post 请求体
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 
 // 在 express 中配置使用 express-art-template 模板引擎
 app.engine('html', require('express-art-template'))
@@ -22,6 +31,13 @@ app.engine('html', require('express-art-template'))
 // 用法：response.render('html模板名', {模板数据})
 // 第一个参数指定模板文件，默认会到服务器入口文件所在目录的 views 目录中寻找
 app.set('views', path.join(__dirname, './views/'))
+
+// 配置插件 express-session
+app.use(session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+}))
 
 // 把路由模块挂载到 app 服务中
 app.use(router)
