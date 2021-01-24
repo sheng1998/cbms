@@ -32,7 +32,7 @@
       </div>
 
       <div class="body">
-        <form class="form-horizontal" action="/goods/add" method="POST">
+        <form id="add-form" class="form-horizontal" action="/goods/add" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="user_id" value="{{user._id}}">
           <div class="form-group">
             <label class="col-sm-2 control-label">商品名称</label>
@@ -52,24 +52,20 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">商品种类</label>
             <div class="col-sm-10">
-              <input type="text" name="type" required class="form-control" id="good-type" placeholder="商品种类">
+              <input type="text" required name="type" class="form-control" id="good-type" placeholder="商品种类">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">商品图片</label>
             <div class="col-sm-10">
-              <input type="file" required name="image" class="form-control" id="good-image">
+              <input type="file" required name="image" class="form-control" id="good-image" accept="image/*">
             </div>
           </div>
           <div class="form-group classification1">
             <label class="col-sm-2 control-label">商品一级分类</label>
             <div class="col-sm-10">
               <select required class="form-control" name="classification1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                <option></option>
               </select>
             </div>
           </div>
@@ -77,11 +73,7 @@
             <label class="col-sm-2 control-label">商品二级分类</label>
             <div class="col-sm-10">
               <select required class="form-control" name="classification2">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                <option></option>
               </select>
             </div>
           </div>
@@ -93,6 +85,53 @@
         </form>
       </div>
     </section>
+  </div>
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script>
+    let classification1 = document.querySelector('.classification1 select')
+    let classification2 = document.querySelector('.classification2 select')
+    axios.get('/goods/get-classification')
+      .then(function (response) {
+        let data = response.data
+        let classification1HTML = ''
+        let classification2HTML = ''
+        data.forEach(item => {
+          classification1HTML += `<option>${item.classification1}</option>`
+        })
+        classification1.innerHTML = classification1HTML
+        data[0].classification2.forEach(item => {
+          classification2HTML += `<option>${item}</option>`
+        })
+        classification2.innerHTML = classification2HTML
+
+        classification1.onchange = function () {
+          data.forEach((item, index) => {
+            if (item.classification1 === classification1.value) {
+              classification2HTML = ''
+              data[index].classification2.forEach(item => {
+                classification2HTML += `<option>${item}</option>`
+              })
+              classification2.innerHTML = classification2HTML
+            }
+          })
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  </script>
+
+  {{ else }}
+  <div id="unLogin">
+    <div class="login-tips">
+      <h5>未登录提示</h5>
+      <div class="content">请先先登录/注册再进行操作</div>
+      <div class="button">
+        <a class="btn btn-success" href="/login">登录</a>
+        <a class="btn btn-danger" href="/register">注册</a>
+      </div>
+    </div>
   </div>
   {{ /if }}
 </body>

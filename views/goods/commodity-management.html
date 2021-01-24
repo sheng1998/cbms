@@ -50,42 +50,32 @@
                 <span>操作</span>
             </div>
             <div class="table-body">
+                {{ if goods }}
+                    {{ each goods good index }}
+                    <div>
+                        <input type="checkbox">
+                        <div onclick="enlargeImg(this)">
+                            <img src="{{ good.good_img }}" alt="">
+                        </div>
+                        <div>{{ good.good_name }}</div>
+                        <div>{{ good.good_type }}</div>
+                        <div>￥ {{ good.good_price }}</div>
+                        <div>月销：{{ good.sales }}</div>
+                        <div class="operation">
+                            <div>
+                                <i class="iconfont icon-xiugai"></i>
+                            </div>
+                            <div>
+                                <i class="iconfont icon-shanchu"></i>
+                            </div>
+                        </div>
+                    </div>
+                    {{ /each }}
+                {{ else }}
                 <div>
-                    <input type="checkbox">
-                    <div onclick="enlargeImg(this)">
-                        <img src="../public/img/goods/sheng/分类名/d37191b00ded610e789acfa400f92d2.jpg" alt="">
-                    </div>
-                    <div>粉色爱恋</div>
-                    <div>粉玫瑰</div>
-                    <div>￥ 128</div>
-                    <div>月销：1234</div>
-                    <div class="operation">
-                        <div>
-                            <i class="iconfont icon-xiugai"></i>
-                        </div>
-                        <div>
-                            <i class="iconfont icon-shanchu"></i>
-                        </div>
-                    </div>
+                    <h5>暂无商品</h5>
                 </div>
-                <div>
-                    <input type="checkbox">
-                    <div onclick="enlargeImg(this)">
-                        <img src="../public/img/goods/sheng/分类名/d160d1fb426026304b01c06314ff90a.jpg" alt="">
-                    </div>
-                    <div>浅蓝之恋</div>
-                    <div>白玫瑰</div>
-                    <div>￥ 148</div>
-                    <div>月销：993</div>
-                    <div class="operation">
-                        <div>
-                            <i class="iconfont icon-xiugai"></i>
-                        </div>
-                        <div>
-                            <i class="iconfont icon-shanchu"></i>
-                        </div>
-                    </div>
-                </div>
+                {{ /if }}
             </div>
         </div>
     </div>
@@ -94,12 +84,10 @@
 
 {{ block 'script'}}
 <script>
-    ;
-    (function () {
+    ;(function () {
         let classificationMenu = document.querySelector('#classification-menu')
 
         ajax('/goods/get-classification', 'GET', (data) => {
-            console.log(data)
             classificationMenu.innerHTML = ''
             data.forEach((item, index) => {
                 let temporaryHTML1 = `

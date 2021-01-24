@@ -9,6 +9,7 @@ yarn-error.log*
 selenium-debug.log
 /.history/
 /.VSCodeCounter/
+/public/img/goods/6002dae5d3f02a03708ef43b
 
 # Editor directories and files
 .idea

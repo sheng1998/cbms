@@ -19,6 +19,11 @@ let goodSchema = new Schema({
         type: Number,
         required: true
     },
+    // 月销
+    sales: {
+        type: Number,
+        default: 0
+    },
     // 商品图片
     good_img: {
         type: String,
