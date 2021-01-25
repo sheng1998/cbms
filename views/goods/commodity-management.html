@@ -51,26 +51,26 @@
             </div>
             <div class="table-body">
                 {{ if goods }}
-                    {{ each goods good index }}
-                    <div>
-                        <input type="checkbox">
-                        <div onclick="enlargeImg(this)">
-                            <img src="{{ good.good_img }}" alt="">
+                {{ each goods good index }}
+                <div>
+                    <input type="checkbox">
+                    <div onclick="enlargeImg(this)">
+                        <img src="{{ good.good_img }}" alt="">
+                    </div>
+                    <div>{{ good.good_name }}</div>
+                    <div>{{ good.good_type }}</div>
+                    <div>￥ {{ good.good_price }}</div>
+                    <div>月销：{{ good.sales }}</div>
+                    <div class="operation">
+                        <div>
+                            <i class="iconfont icon-xiugai"></i>
                         </div>
-                        <div>{{ good.good_name }}</div>
-                        <div>{{ good.good_type }}</div>
-                        <div>￥ {{ good.good_price }}</div>
-                        <div>月销：{{ good.sales }}</div>
-                        <div class="operation">
-                            <div>
-                                <i class="iconfont icon-xiugai"></i>
-                            </div>
-                            <div>
-                                <i class="iconfont icon-shanchu"></i>
-                            </div>
+                        <div onclick="removeGood({{ good._id }})">
+                            <i class="iconfont icon-shanchu"></i>
                         </div>
                     </div>
-                    {{ /each }}
+                </div>
+                {{ /each }}
                 {{ else }}
                 <div>
                     <h5>暂无商品</h5>
@@ -83,8 +83,10 @@
 {{ /block }}
 
 {{ block 'script'}}
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script>
-    ;(function () {
+    ;
+    (function () {
         let classificationMenu = document.querySelector('#classification-menu')
 
         ajax('/goods/get-classification', 'GET', (data) => {
@@ -154,6 +156,30 @@
 
     function removeDaTuPian(node) {
         document.body.removeChild(node)
+    }
+
+    // 删除商品
+    function removeGood(goodID) {
+        let isDelete = window.confirm('确认要删除该商品吗？')
+
+        if (isDelete) {
+            axios.get('/goods/remove', {
+                    params: {
+                        id: goodID
+                    }
+                })
+                .then(data => {
+                    if (data.data.err_code === 0) {
+                        window.alert('删除成功！')
+                        window.location.reload()
+                    } else {
+                        window.alert('删除失败！')
+                    }
+                })
+                .catch(err => {
+                    window.alert('删除失败！')
+                })
+        }
     }
 </script>
 {{ /block}}

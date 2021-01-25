@@ -58,6 +58,7 @@ node app.js
 | /goods/add                  | GET  |          |                                                            | 渲染添加商品页面 |
 | /goods/add                  | POST |          | name、price、type、image、classification1、classification2 | 处理添加商品请求 |
 | /get-classification         | GET  |          |                                                            | 获取分类列表     |
+| /goods/remove               | GET  | id       |                                                            | 删除指定商品     |
 
 
 <br>

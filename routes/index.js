@@ -254,6 +254,27 @@ router.post('/goods/add', upload.single('image'), (request, response) => {
     })
 })
 
+// 处理删除商品请求
+router.get('/goods/remove', (request, response) => {
+    myRedirect(request, response, function () {
+        Good.findByIdAndDelete(request.query.id).then(() => {
+            response.json({
+                status: 200,
+                err_code: 0,
+                message: '删除成功！'
+            })
+        }).catch(err => {
+            if (err) {
+                response.json({
+                    status: 500,
+                    err_code: 500,
+                    message: 'Server Error!'
+                })
+            }
+        })
+    })
+})
+
 // 渲染分类管理页面
 router.get('/goods/lassified-management', (request, response) => {
     myRedirect(request, response, function () {
